@@ -52,7 +52,7 @@ ReviewSchema.statics.getAverageRating = async function (bootcampId) {
 
   try {
     await this.model('Bootcamp').findByIdAndUpdate(bootcampId, {
-      averageRating: obj[0].averageRating
+      averageRating: obj.length > 0 ? obj[0].averageRating : undefined
     })
   } catch (err) {
     console.error(err)
@@ -60,13 +60,13 @@ ReviewSchema.statics.getAverageRating = async function (bootcampId) {
 }
 
 // Call getAverageRating after save
-ReviewSchema.post('save', function () {
-  this.constructor.getAverageRating(this.bootcamp)
+ReviewSchema.post('save', async function () {
+  await this.constructor.getAverageRating(this.bootcamp)
 })
 
 // Call getAverageRating after remove
-ReviewSchema.post('remove', function () {
-  this.constructor.getAverageRating(this.bootcamp)
+ReviewSchema.post('remove', async function () {
+  await this.constructor.getAverageRating(this.bootcamp)
 })
 
 module.exports = mongoose.model('Review', ReviewSchema)

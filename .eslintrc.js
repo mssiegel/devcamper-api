@@ -1,6 +1,6 @@
 module.exports = {
   extends: ['airbnb-base', 'plugin:jest/recommended'],
-  plugins: ['import', 'jest'],
+  plugins: ['jest'],
   env: {
     node: true,
     'jest/globals': true,
@@ -10,10 +10,13 @@ module.exports = {
     semi: 0,
     'no-console': 0,
     'object-curly-newline': 0,
-    'no-underscore-dangle': ['error', { allow: ['_id'] }],
+    'no-underscore-dangle': 0,
     'no-return-await': 0,
     'func-names': 0,
     'prefer-destructuring': 0,
     'no-use-before-define': ['error', { functions: false }],
+    'one-var': 0,
+    'one-var-declaration-per-line': 0,
+    'max-len': ['error', { code: 120 }],
   },
 }

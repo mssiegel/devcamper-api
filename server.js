@@ -2,7 +2,7 @@ const path = require('path')
 const express = require('express')
 const dotenv = require('dotenv')
 const morgan = require('morgan')
-const colors = require('colors')
+require('colors')
 const fileupload = require('express-fileupload')
 const cookieParser = require('cookie-parser')
 const mongoSanitize = require('express-mongo-sanitize')
@@ -55,7 +55,7 @@ app.use(xss())
 // Rate Limiting
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 10 minutes
-  max: 100
+  max: 100,
 })
 app.use(limiter)
 
@@ -81,13 +81,13 @@ const PORT = process.env.PORT || 5000
 
 const server = app.listen(
   PORT,
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold)
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold),
 )
 
 // Handle unhandled promise rejections
-process.on('unhandledRejection', (err, promise) => {
-  console.log(`Error: ${err.name}: ${err.message}`.red)
-  console.log(err)
+process.on('unhandledRejection', (err) => {
+  console.error(`Error: ${err.name}: ${err.message}`.red)
+  console.error(err)
   // Close server & exit process
   server.close(() => process.exit(1))
 })

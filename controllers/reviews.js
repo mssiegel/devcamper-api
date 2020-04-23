@@ -7,16 +7,17 @@ const Bootcamp = require('../models/Bootcamp')
 // @route     GET /api/v1/reviews
 // @route     GET /api/v1/bootcamps/:bootcampId/reviews
 // @access    Public
-exports.getReviews = asyncHandler(async (req, res, next) => {
+exports.getReviews = asyncHandler(async (req, res) => {
   if (req.params.bootcampId) {
     const reviews = await Review.find({ bootcamp: req.params.bootcampId })
 
     return res.status(200).json({
       success: true,
       count: reviews.length,
-      data: reviews
+      data: reviews,
     })
-  } else res.status(200).json(res.advancedResults)
+  }
+  return res.status(200).json(res.advancedResults)
 })
 
 // @desc      Get single review
@@ -25,14 +26,14 @@ exports.getReviews = asyncHandler(async (req, res, next) => {
 exports.getReview = asyncHandler(async (req, res, next) => {
   const review = await Review.findById(req.params.id).populate({
     path: 'bootcamp',
-    select: 'name description'
+    select: 'name description',
   })
 
   if (!review) return next(new ErrorResponse(`No review found with the id of ${req.params.id}`, 404))
 
-  res.status(200).json({
+  return res.status(200).json({
     success: true,
-    data: review
+    data: review,
   })
 })
 
@@ -49,9 +50,9 @@ exports.addReview = asyncHandler(async (req, res, next) => {
 
   const review = await Review.create(req.body)
 
-  res.status(201).json({
+  return res.status(201).json({
     success: true,
-    data: review
+    data: review,
   })
 })
 
@@ -64,19 +65,20 @@ exports.updateReview = asyncHandler(async (req, res, next) => {
   if (!review) return next(new ErrorResponse(`No review found with the id of ${req.params.id}`, 404))
 
   // Make sure review belongs to user or user is admin
-  if (review.user.toString() !== req.user.id && req.user.role !== 'admin')
-    return next(new ErrorResponse(`Not authorized to update review`, 401))
+  if (review.user.toString() !== req.user.id && req.user.role !== 'admin') {
+    return next(new ErrorResponse('Not authorized to update review', 401))
+  }
 
   review = await Review.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
-    runValidators: true
+    runValidators: true,
   })
 
   await review.save()
 
-  res.status(200).json({
+  return res.status(200).json({
     success: true,
-    data: review
+    data: review,
   })
 })
 
@@ -90,13 +92,13 @@ exports.deleteReview = asyncHandler(async (req, res, next) => {
 
   // Make sure review belongs to user or user is admin
   if (review.user.toString() !== req.user.id && req.user.role !== 'admin') {
-    return next(new ErrorResponse(`Not authorized to update review`, 401))
+    return next(new ErrorResponse('Not authorized to update review', 401))
   }
 
   await review.remove()
 
-  res.status(200).json({
+  return res.status(200).json({
     success: true,
-    data: {}
+    data: {},
   })
 })

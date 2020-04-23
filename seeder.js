@@ -1,6 +1,6 @@
 const fs = require('fs')
 const mongoose = require('mongoose')
-const colors = require('colors')
+require('colors')
 const dotenv = require('dotenv')
 
 // Load env vars
@@ -17,7 +17,7 @@ mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
-  useFindAndModify: false
+  useFindAndModify: false,
 })
 
 // Read JSON files

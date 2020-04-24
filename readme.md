@@ -8,13 +8,13 @@ Rename "config/config.env.env" to "config/config.env" and update the values/sett
 
 ## Install Dependencies
 
-```
+```bash
 npm install
 ```
 
 ## Run App
 
-```
+```bash
 # Run in dev mode
 npm run dev
 
@@ -26,12 +26,25 @@ npm start
 
 To seed the database with users, bootcamps, courses and reviews with data from the "\_data" folder, run
 
-```
+```bash
 # Destroy all data
 node seeder -d
 
 # Import all data
 node seeder -i
+```
+
+### Docker Setup
+
+```bash
+# For local development
+docker-compose up -d
+
+# For production
+# Step 1: build container for production
+docker build -t devcamper .
+# Step 2: Launch container
+docker container run -p 3030:3000 node-docker-workflow
 ```
 
 ## Demo

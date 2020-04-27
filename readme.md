@@ -55,4 +55,3 @@ Extensive documentation with examples [here](https://documenter.getpostman.com/v
 
 - Version: 1.0.0
 - License: MIT
-- Author: Moshe Siegel

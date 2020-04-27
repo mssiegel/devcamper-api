@@ -13,6 +13,7 @@ const hpp = require('hpp')
 const cors = require('cors')
 const cloudinary = require('cloudinary').v2
 const errorHandler = require('./middleware/error')
+const ErrorResponse = require('./utils/errorResponse')
 const connectDB = require('./config/db')
 
 // Load environment vairables
@@ -75,7 +76,14 @@ app.use(limiter)
 app.use(hpp())
 
 // Enable CORS
-app.use(cors())
+const corsWhitelist = process.env.CORS_WHITELIST.split(' ')
+const corsOptions = {
+  origin(origin, callback) {
+    if (corsWhitelist.includes(origin) || !origin) callback(null, true)
+    else callback(new ErrorResponse('Not allowed by CORS', 401))
+  },
+}
+app.use(cors(corsOptions))
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')))

@@ -11,11 +11,20 @@ const xss = require('xss-clean')
 const rateLimit = require('express-rate-limit')
 const hpp = require('hpp')
 const cors = require('cors')
+const cloudinary = require('cloudinary').v2
 const errorHandler = require('./middleware/error')
 const connectDB = require('./config/db')
 
 // Load environment vairables
 dotenv.config({ path: './config/config.env' })
+
+// Configure cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+})
+module.exports = cloudinary
 
 // Connect to database
 connectDB()
@@ -41,7 +50,11 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // File upload
-app.use(fileupload())
+app.use(
+  fileupload({
+    useTempFiles: true,
+  }),
+)
 
 // Sanitize data against NoSQL injections
 app.use(mongoSanitize())
@@ -67,6 +80,9 @@ app.use(cors())
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')))
+/* app.get('/', (req, res) => {
+  return res.sendFile('public/apiDocumentation.html', { root: __dirname })
+}) */
 
 // Mount routers
 app.use('/api/v1/bootcamps', bootcamps)

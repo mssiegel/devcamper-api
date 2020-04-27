@@ -1,6 +1,6 @@
 const ErrorResponse = require('../utils/errorResponse')
 
-const errorHandler = (err, req, res) => {
+const errorHandler = (err, req, res, next) => {
   let error = { ...err }
 
   error.message = err.message
@@ -27,6 +27,7 @@ const errorHandler = (err, req, res) => {
   }
 
   res.status(error.statusCode || 500).json({ success: false, error: error.message || 'Server Error' })
+  next()
 }
 
 module.exports = errorHandler

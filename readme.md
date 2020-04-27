@@ -44,7 +44,7 @@ docker-compose up -d
 # Step 1: build container for production
 docker build -t devcamper .
 # Step 2: Launch container
-docker container run -p 3030:3000 node-docker-workflow
+docker container run -p 3030:5000 devcamper
 ```
 
 ## Demo

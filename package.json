@@ -4,15 +4,16 @@
   "description": "Devcamper backend api",
   "main": "server.js",
   "scripts": {
-    "start": "SET NODE_ENV=production&& node server",
-    "dev": "nodemon server",
+    "start": "node server",
+    "dev": "nodemon --legacy-watch server",
     "lint": "eslint .",
-    "test": "jest src"
+    "test": "set NODE_ENV=test && jest src"
   },
   "author": "Moshe Siegel",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.21.0",
     "colors": "^1.4.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",

@@ -41,9 +41,9 @@ node seeder -i
 docker-compose up -d
 
 # For production
-# Step 1: build container for production
+# Step 1: build image for production
 docker build -t devcamper .
-# Step 2: Launch container
+# Step 2: Launch container from image
 docker container run -p 3030:5000 devcamper
 ```
 

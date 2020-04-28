@@ -1,6 +1,6 @@
 const cloudinary = require('cloudinary').v2
 const ErrorResponse = require('../utils/errorResponse')
-const asyncHandler = require('../middleware/async')
+const asyncHandler = require('../utils/async')
 const geocoder = require('../utils/geocoder')
 const Bootcamp = require('../models/Bootcamp')
 

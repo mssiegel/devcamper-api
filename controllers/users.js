@@ -1,4 +1,4 @@
-const asyncHandler = require('../middleware/async')
+const asyncHandler = require('../utils/async')
 const User = require('../models/User')
 
 // @desc      Get all users

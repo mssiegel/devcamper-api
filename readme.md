@@ -1,20 +1,19 @@
 # Devcamper API
 
-> Backend API for DevCamper application, which is a bootcamp directory website
+Backend API for a bootcamp directory. Contains routes for creating bootcamps, courses, and reviews.\
+Techstack: **Docker, MongoDB, Node, Express, Cloudinary**\
+For documentation with sample requests, visit the [Devcamper Postman Doc](https://documenter.getpostman.com/view/8923145/SVtVVTzd?version=latest)
 
 ## Usage
 
 Rename "config/config.env.env" to "config/config.env" and update the values/settings to your own
 
-## Install Dependencies
+### Run App
 
 ```bash
+# Install dependencies
 npm install
-```
 
-## Run App
-
-```bash
 # Run in dev mode
 npm run dev
 
@@ -22,36 +21,25 @@ npm run dev
 npm start
 ```
 
-## Database Seeder
+### Database Seeder
 
-To seed the database with users, bootcamps, courses and reviews with data from the "\_data" folder, run
+Seeds the database with users, bootcamps, courses and reviews with sample data from the "\_data" folder
 
 ```bash
-# Destroy all data
+# Destroys all data
 node seeder -d
 
-# Import all data
+# Imports all data
 node seeder -i
 ```
 
 ### Docker Setup
 
 ```bash
-# For local development
+# To run locally:
 docker-compose up -d
 
-# For production
-# Step 1: build image for production
+# To run in production (builds image and then launches container from image):
 docker build -t devcamper .
-# Step 2: Launch container from image
 docker container run -p 3030:5000 devcamper
 ```
-
-## Demo
-
-The API is live at [devcamper.io](https://devcamper.io)
-
-Extensive documentation with examples [here](https://documenter.getpostman.com/view/8923145/SVtVVTzd?version=latest)
-
-- Version: 1.0.0
-- License: MIT
